@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+</head>
+<body>
+<h1>Creating a New User</h1>
+<form action ="/addeduser" method="POST">
+    <label>id</label>
+    <input type="text" name="id" required>
+    <label>Last name</label>
+    <input type="text" name="firstname" required>
+    <label>Last name</label>
+    <input type="text" name="lastname" required>
+    <label>Email</label>
+    <input type="email" name="email">
+    <fieldset>
+        <label>Address</label>
+        <label>Street</label>
+        <input type="text" name="Address.Street" required>
+        <label>Zip Code</label>
+        <input type="number" name="Address.zip" required>
+        <label>City</label>
+        <input type="text" name="Address.City">
+        <label>Country</label>
+        <input type="text" name="Address.Country">
+    </fieldset>
+
+
+<Button type="submit">Submit</Button>
+</form>
+
+</ui>
+</body>
+</html>
