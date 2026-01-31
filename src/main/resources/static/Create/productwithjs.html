@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+</head>
+<body>
+<h1>Creating a New Product with Javascript</h1>
+<form action ="/addedproductasjson" method="POST" id="productForm">
+    <label>id</label>
+    <input type="text" name="id" required>
+    <label>name</label>
+    <input type="text" name="name" required>
+    <label>Price</label>
+    <input type="number" name="price" required>
+    <label>Color</label>
+    <label><input type="radio" name="color" value="Blue" checked>Blue</label>
+    <label><input type="radio" name="color" value="Black" >Black</label>
+    <label><input type="radio" name="color" value="Gray" >Gray</label>
+    <label><input type="radio" name="color" value="White" >White</label>
+    <label><input type="radio" name="color" value="Green" >Green</label>
+    <Button type="submit">Submit</Button>
+</form>
+
+
+<form action ="/updateproductasjson" method="POST" id="UpdateForm">
+    <label>id</label>
+    <input type="text" name="id" required>
+    <label>name</label>
+    <input type="text" name="name" required>
+    <label>Price</label>
+    <input type="number" name="price" required>
+    <label>Color</label>
+    <label><input type="radio" name="updatedcolor" value="Blue" checked>Blue</label>
+    <label><input type="radio" name="updatedcolor" value="Black" >Black</label>
+    <label><input type="radio" name="updatedcolor" value="Gray" >Gray</label>
+    <label><input type="radio" name="updatedcolor" value="White" >White</label>
+    <label><input type="radio" name="updatedcolor" value="Green" >Green</label>
+    <Button type="submit">Submit</Button>
+</form>
+
+<div id="response"></div>
+<script>
+    const form = document.getElementById("productForm");
+    const responseDiv= document.getElementById("response");
+    form.addEventListener("submit",async(e)=> {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const data ={
+    name: fd.get("name"),
+    price:Number(fd.get("price")),
+    id: Number(fd.get("id")),
+    color:fd.get("color")
+    };
+
+    const res = await fetch("/addedproductasjson",{
+    method:"POST",
+    headers: {"Content-Type":"application/json"},
+    body:JSON.stringify(data)
+    });
+
+    const text = await res.text();
+    responseDiv.textContent =text;
+    });
+
+</script>
+<script>
+    const Updatedform = document.getElementById("UpdateForm");
+    Updatedform.addEventListener("submit",async(e)=> {
+    e.preventDefault();
+    const fd = new FormData(Updatedform);
+    const data ={
+    name: fd.get("name"),
+    price:Number(fd.get("price")),
+    id: Number(fd.get("id")),
+    color:fd.get("updatedcolor")
+    };
+
+    const res = await fetch("/updateproductasjson",{
+    method:"PUT",
+    headers: {"Content-Type":"application/json"},
+    body:JSON.stringify(data)
+    });
+
+    const text = await res.text();
+    responseDiv.textContent =text;
+    });
+
+</script>
+
+</body>
+</html>

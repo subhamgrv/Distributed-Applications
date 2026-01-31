@@ -15,6 +15,10 @@ public class Product {
         this.color = color;
     }
 
+    public Product(){
+
+    }
+
 
     public int getId() {
 

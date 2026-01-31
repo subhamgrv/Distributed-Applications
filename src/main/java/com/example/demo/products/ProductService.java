@@ -57,4 +57,73 @@ public class ProductService {
     }
 
 
+
+
+    public Product addedNewProduct(String name, int id , Double price, String color){
+        Product p = new Product(id,name,price,color);
+        for(Product m : productList) {
+            if (m.getId() == p.getId()) {
+                return getById(id);
+
+            }
+        }
+
+                productList.add(p);
+                return p;
+            }
+
+
+
+
+
+    public Product addedNewProductwithrequestbody(Product p){
+        for(Product m : productList) {
+            if (m.getId() == p.getId()) {
+                return getById(p.getId());
+
+            }
+        }
+
+        productList.add(p);
+        return p;
+    }
+
+
+    public Product deletedProductwithrequestbody (int id){
+        Product p  = getById(id);
+        if(p!=null){
+            productList.remove(p);
+            return p;
+        }
+        else{
+            return null;
+        }
+    }
+
+    public Product updateProductwithrequestbody(Product p){
+        Product m = getById(p.getId());
+        if(m!=null){
+            m.setColor(p.getColor());
+            m.setPrice(p.getPrice());
+            m.setName(p.getName());
+
+            return m;
+    }else{
+            return p;
+
+    }
+    }
+
+    public Product deleteProductById(int id){
+        Product p  = getById(id);
+        if(p!=null){
+            productList.remove(p);
+            return p;
+        }
+        else{
+            return null;
+        }
+    }
+
+
 }

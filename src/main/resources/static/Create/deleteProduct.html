@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+</head>
+<body>
+<h1>Delete this Product</h1>
+<form action ="/Deletedproductasjson"  id="productForm">
+    <label>id</label>
+    <input type="number" name="id" required>
+    <Button type="submit">Delete</Button>
+</form>
+
+<div id="response"></div>
+<script>
+    const form = document.getElementById("productForm");
+    const responseDiv= document.getElementById("response");
+    form.addEventListener("submit",async(e)=> {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const data ={
+    id: Number(fd.get("id"))
+    };
+
+    const res = await fetch("/Deletedproductasjson",{
+    method:"DELETE",
+    headers: {"Content-Type":"application/json"},
+    body:JSON.stringify(data)
+    });
+
+    const text = await res.text();
+    responseDiv.textContent =text +" "+ res.status;
+    });
+
+</script>
+
+</body>
+</html>

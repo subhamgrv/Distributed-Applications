@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+</head>
+<body>
+<h1>Creating a New Product</h1>
+<form action ="/addedproduct" method="POST" >
+    <label>id</label>
+    <input type="number" name="id" required>
+    <label>name</label>
+    <input type="text" name="name" required>
+    <label>Price</label>
+    <input type="number" name="price" required>
+    <label>Color</label>
+    <label><input type="radio" name="color" value="Blue" checked>Blue</label>
+    <label><input type="radio" name="color" value="Black" >Black</label>
+    <label><input type="radio" name="color" value="Gray" >Gray</label>
+    <label><input type="radio" name="color" value="White" >White</label>
+    <label><input type="radio" name="color" value="Green" >Green</label>
+    <Button type="submit">Submit</Button>
+</form>
+
+</ui>
+</body>
+</html>
