@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{fragments/header :: header}"></div>
+
+<body>
+<h1>Product Catalog</h1>
+
+<p>
+    <a href="/dashboard/dashboard.html">Back to Dashboard</a>
+</p>
+
+
+<a th:href="@{/catalog(edit=true)}">Enable Edit mode</a>
+<a th:href="@{/catalog(edit=false)}">Disable Edit mode</a>
+<table border="1" cellpadding="8">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Color</th>
+        <th>Open</th>
+        <th th:if="${edit}">Delete</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr  th:each="p:${products}">
+        <td th:text="${p.id}"></td>
+        <td th:text="${p.name}"></td>
+        <td th:text="${p.price}"></td>
+        <td th:text="${p.color}"></td>
+        <td> <a th:href="@{/productdetail/{id}(id=${p.id})}">View</a></td>
+        <td th:if="${edit}"><a th:href="@{/ProductCatalog/delete/{id}(id=${p.id})}">Delete</a></td>
+
+    </tr>
+
+    </tbody>
+
+
+</table>
+<p th:if="${#lists.isEmpty(products)}">No Products Available</p>
+</body>
+</html>
