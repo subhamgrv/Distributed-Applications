@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{fragments/header :: header}"></div>
+
+<body>
+<h1>Product Detail</h1>
+
+<p>
+    <a href="/dashboard/dashboard.html">Back to Dashboard</a>
+</p>
+
+<p>
+    <a th:href="@{/mvc/catalog}">Back to the Catalog</a>
+
+</p>
+</p>
+
+<div th:if="${ProductDetailDTO.product!=null}">
+    <h2 th:text="${ProductDetailDTO.product.name}">Product Name</h2>
+    <ul>
+        <li><b>Id:</b><span th:text="${ProductDetailDTO.product.id}"></span></li>
+        <li><b>Price:</b><span th:text="${ProductDetailDTO.product.price}"></span></li>
+        <li><b>Color:</b><span th:text="${ProductDetailDTO.product.color}"></span></li>
+        <li><b>Stock: </b><span th:text="${ProductDetailDTO.stock}"></span></li>
+        <li><span th:if="${!ProductDetailDTO.isSoldOut}"><b>Still Available</b></span></li>
+        <li><span th:if="${ProductDetailDTO.isSoldOut}"><b>Sold OUT !!!!</b></span></li>
+
+        <li>            <form th:action ="@{/cart-add/{id}(id=${ProductDetailDTO.product.id})}" method="POST"><button type="submit">+</button> </form>
+        </li>
+        <li>            <form th:action ="@{/cart-remove/{id}(id=${ProductDetailDTO.product.id})}" method="POST"><button type="submit">-</button> </form>
+        </li>
+
+
+
+
+
+
+
+
+    </ul>
+
+
+
+</div>
+
+<p th:if="${ProductDetailDTO.product == null}">Product not found</p>
+</body>
+</html>

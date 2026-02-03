@@ -1,6 +1,6 @@
 package com.example.demo.cart;
 
-import com.example.demo.products.ProductService;
+import com.example.demo.Facade.AddToCartFacade;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,10 +10,11 @@ import java.util.Map;
 @Controller
 public class ShoppingController {
 
-    private ShoppingService shoppingService;
-
-    public ShoppingController(ShoppingService shoppingService){
+    private final ShoppingService shoppingService;
+    private final AddToCartFacade addToCardFacade;
+    public ShoppingController(ShoppingService shoppingService, AddToCartFacade addToCardFacade){
         this.shoppingService=shoppingService;
+        this.addToCardFacade=addToCardFacade;
     }
 
 
@@ -25,12 +26,12 @@ public class ShoppingController {
 
     @PostMapping("/cart-add/{id}")
     public String cartAdd(@PathVariable int id, Model model){
-        shoppingService.addProduct(id);
+        addToCardFacade.manageStockadd(id);
         return "redirect:/cart";
     }
     @PostMapping("/cart-remove/{id}")
     public String cartRemove(@PathVariable int id, Model model){
-        shoppingService.removeProduct(id);
+        addToCardFacade.manageStockremove(id);
         return "redirect:/cart";
     }
 

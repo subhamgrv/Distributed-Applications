@@ -8,7 +8,7 @@ import   org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class catalogController {
-private ProductService productService;
+private final ProductService productService;
 
 
 catalogController(ProductService productService){

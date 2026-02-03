@@ -30,7 +30,9 @@
         <td th:text="${p.name}"></td>
         <td th:text="${p.price}"></td>
         <td th:text="${p.color}"></td>
-        <td> <a th:href="@{/productdetail/{id}(id=${p.id})}">View</a></td>
+<!--        <td> <a th:href="@{/productdetail/{id}(id=${p.id})}">View</a></td>-->
+        <td> <a th:href="@{/productfacade/{id}(id=${p.id})}">View</a></td>
+
         <td th:if="${edit}"><a th:href="@{/ProductCatalog/delete/{id}(id=${p.id})}">Delete</a></td>
 
     </tr>

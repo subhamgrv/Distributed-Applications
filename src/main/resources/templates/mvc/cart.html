@@ -26,7 +26,8 @@
         <td th:text="${p.key.name}"></td>
         <td th:text="${p.key.price}"></td>
         <td th:text="${p.value}"></td>
-        <td> <a th:href="@{/productdetail/{id}(id=${p.key.id})}">View</a></td>
+<!--        <td> <a th:href="@{/productdetail/{id}(id=${p.key.id})}">View</a></td>-->
+        <td> <a th:href="@{/productfacade/{id}(id=${p.key.id})}">View</a></td>
 
     </tr>
 

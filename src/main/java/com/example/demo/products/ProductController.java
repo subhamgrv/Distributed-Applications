@@ -8,7 +8,7 @@ import java.util.Map;
 
 @RestController
 public class ProductController {
-    ProductService productService;
+    private final ProductService  productService;
 
     ProductController(ProductService productService) {
         this.productService= productService;

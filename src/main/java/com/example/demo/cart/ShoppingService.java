@@ -11,7 +11,7 @@ import java.util.Map;
 @Service
 public class ShoppingService {
 
-    private  ProductService productService;
+    private final ProductService productService;
 
         Map<Product,Integer> shoppingCart ;
 
@@ -21,23 +21,25 @@ public class ShoppingService {
         }
 
 
-        public Map getCart(){
+        public Map<Product,Integer> getCart(){
             return  shoppingCart;
         }
-        public Map addProduct(int id){
+
+
+        public Map<Product,Integer> addProduct(int id){
             Product p = productService.getById(id);
             shoppingCart.put(p,shoppingCart.getOrDefault(p,0)+1);
         return  shoppingCart;}
 
-            public Map removeProduct(int id){
-            if(productService.getById(id)!=null && shoppingCart.get(productService.getById(id)) > 0 ){
+
+            public Map<Product,Integer> removeProduct(int id){
                 Product p = productService.getById(id);
                 shoppingCart.put(p,shoppingCart.get(p)-1);
                 if(shoppingCart.get(p)==0){
                     shoppingCart.remove(p);
                 }
 
-            }
+
             return  shoppingCart;}
 
 
