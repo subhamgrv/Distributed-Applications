@@ -1,6 +1,7 @@
 package com.example.demo.cart;
 
 import com.example.demo.Facade.AddToCartFacade;
+import com.example.demo.products.Product;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +22,7 @@ public class ShoppingController {
 
     @GetMapping("/cart")
     public String getCart(Model model){
-        model.addAttribute("shoppingcart",shoppingService.getCart());
+        model.addAttribute("shoppingcart",shoppingService.presentCart());
     return "/mvc/cart";}
 
     @PostMapping("/cart-add/{id}")

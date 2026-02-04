@@ -1,128 +1,85 @@
 package com.example.demo.products;
 
 
+import com.example.demo.LoadProductDatabase;
+import com.example.demo.repository.ProductRepository;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
-    List<Product> productList = new ArrayList<Product>();
+   private final ProductRepository productRepository;
 
 
-    public ProductService(){
-        productList.add(new Product(1,  "T-Shirt",        14.99,  "Blue"));
-        productList.add(new Product(2,  "T-Shirt",        14.99,  "Black"));
-        productList.add(new Product(3,  "Hoodie",         39.99,  "Gray"));
-        productList.add(new Product(4,  "Hoodie",         44.99,  "Blue"));
-        productList.add(new Product(5,  "Jeans",          59.99,  "Blue"));
-        productList.add(new Product(6,  "Jeans",          49.99,  "Black"));
-        productList.add(new Product(7,  "Sneakers",       79.99,  "White"));
-        productList.add(new Product(8,  "Sneakers",       89.99,  "Black"));
-        productList.add(new Product(9,  "Cap",             9.99,  "Red"));
-        productList.add(new Product(10, "Cap",            11.99,  "Blue"));
-        productList.add(new Product(11, "Socks (3-pack)",  6.49,  "White"));
-        productList.add(new Product(12, "Jacket",        119.99,  "Green"));
+    public ProductService(ProductRepository productRepository){
+        this.productRepository=productRepository;
     }
 
 
     public List<Product> getallProducts(){
-        return productList;
+        return productRepository.findAll();
 
     }
 
-    public Product getById(int id){
-        for (Product p : productList){
-            if(p.getId()== id) {
-                return p;
-            }
-        }
+    public Product getById(int id)  {
 
-        return null;
+        return productRepository.findById(id).orElseThrow(()->new RuntimeException("Product not Found "+id));
     }
 
     public List<Product> getProductByColor(String color){
-        List <Product> result= new ArrayList<>();
-        for (Product p : productList){
-            if(p.getColor().equalsIgnoreCase(color)) {
-                result.add(p);
+        List<Product> ls = productRepository.findAll();
+        List<Product> sameColor = new ArrayList<>();
+        for (Product p : ls){
+            if(p.getColor().equalsIgnoreCase(color)){
+                sameColor.add(p);
             }
         }
-
-
-        return result;
-    }
+    return sameColor;}
 
 
 
 
-    public Product addedNewProduct(String name, int id , Double price, String color){
-        Product p = new Product(id,name,price,color);
-        for(Product m : productList) {
-            if (m.getId() == p.getId()) {
-                return getById(id);
-
-            }
-        }
-
-                productList.add(p);
-                return p;
-            }
+    public Product addedNewProduct(String name, Double price, String color) {
+        Product p = new Product(name, price,color);
+    productRepository.save(p);
+    return p; }
 
 
 
 
 
     public Product addedNewProductwithrequestbody(Product p){
-        for(Product m : productList) {
-            if (m.getId() == p.getId()) {
-                return getById(p.getId());
 
-            }
-        }
 
-        productList.add(p);
-        return p;
+        return productRepository.save(new Product(p.getName(),p.getPrice(),p.getColor()));
     }
 
 
-    public Product deletedProductwithrequestbody (int id){
-        Product p  = getById(id);
-        if(p!=null){
-            productList.remove(p);
-            return p;
-        }
-        else{
-            return null;
-        }
+    public void deletedProductwithrequestbody (int id){
+        productRepository.deleteById(id);
     }
 
-    public Product updateProductwithrequestbody(Product p){
-        Product m = getById(p.getId());
-        if(m!=null){
-            m.setColor(p.getColor());
-            m.setPrice(p.getPrice());
-            m.setName(p.getName());
+    public void updateProductwithrequestbody(Product p)  {
 
-            return m;
-    }else{
-            return p;
+
+
+        Product existing = productRepository.findById(p.getId()).orElseThrow(()->new RuntimeException("Product not Found"+p.getId()));
+
+        existing.setColor(p.getColor());
+        existing.setPrice(p.getPrice());
+        existing.setName(p.getName());
+
 
     }
-    }
 
-    public Product deleteProductById(int id){
-        Product p  = getById(id);
-        if(p!=null){
-            productList.remove(p);
-            return p;
-        }
-        else{
-            return null;
-        }
+    public void deleteProductById(int id){
+        productRepository.deleteById(id);
     }
 
 

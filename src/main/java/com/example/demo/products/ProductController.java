@@ -32,8 +32,8 @@ public class ProductController {
        return productService.getById(id);}
 
     @GetMapping("/Products/delete/{id}")
-    public Product deleteProductById(@PathVariable int id){
-        return productService.deleteProductById(id);
+    public void deleteProductById(@PathVariable int id){
+         productService.deleteProductById(id);
     }
 
 
@@ -42,8 +42,8 @@ public class ProductController {
         return productService.getProductByColor(color);}
 
     @PostMapping("/addedproduct")
-    public Product addedNewProduct(@RequestParam String name, @RequestParam int id,@RequestParam Double price, @RequestParam String color){
-        return productService.addedNewProduct(name,id,price,color);
+    public Product addedNewProduct(@RequestParam String name,@RequestParam Double price, @RequestParam String color){
+        return productService.addedNewProduct(name,price,color);
     }
 
     @PostMapping("/addedproductasjson")
@@ -52,15 +52,14 @@ public class ProductController {
     }
 
     @DeleteMapping("/Deletedproductasjson")
-    public Product deleteProduct(@RequestBody Map<String,Integer> mp){
-
-        return productService.deletedProductwithrequestbody(mp.get("id"));
+    public void deleteProduct(@RequestBody Map<String,Integer> mp){
+        productService.deletedProductwithrequestbody(mp.get("id"));
 
     }
 
     @PutMapping("/updateproductasjson")
-    public Product updateProduct(@RequestBody Product p){
-        return productService.updateProductwithrequestbody(p);
+    public void updateProduct(@RequestBody Product p){
+        productService.updateProductwithrequestbody(p);
     }
 
 

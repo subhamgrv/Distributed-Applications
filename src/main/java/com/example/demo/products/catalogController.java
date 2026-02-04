@@ -34,7 +34,7 @@ return "/mvc/catalog";
     public String productDelete(@PathVariable int id,@RequestParam(defaultValue = "true") boolean edit){
     Product p  = productService.getById(id);
     if(p!=null){
-        productService.productList.remove(p);
+        productService.deleteProductById(id);
         return "redirect:/catalog?edit=" + edit;
     }
     else{

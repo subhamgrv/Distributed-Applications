@@ -1,8 +1,12 @@
 package com.example.demo.products;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
+@Entity
 public class Product {
-    private int id;
+    @Id  @GeneratedValue private int id;
     private String name;
     private double price;
     private String color;
@@ -10,6 +14,11 @@ public class Product {
 
     public Product(int id, String name, double price, String color) {
         this.id = id;
+        this.name = name;
+        this.price = price;
+        this.color = color;
+    }
+    public Product( String name, double price, String color) {
         this.name = name;
         this.price = price;
         this.color = color;

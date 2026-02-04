@@ -13,7 +13,7 @@ public class ShoppingService {
 
     private final ProductService productService;
 
-        Map<Product,Integer> shoppingCart ;
+        Map<Integer,Integer> shoppingCart ;
 
         public ShoppingService(ProductService productService){
         this.productService=productService;
@@ -21,27 +21,37 @@ public class ShoppingService {
         }
 
 
-        public Map<Product,Integer> getCart(){
+        public Map<Integer,Integer> getCart(){
+            System.out.println(shoppingCart.entrySet().toString());
             return  shoppingCart;
         }
 
 
-        public Map<Product,Integer> addProduct(int id){
+        public Map<Integer,Integer> addProduct(int id){
             Product p = productService.getById(id);
-            shoppingCart.put(p,shoppingCart.getOrDefault(p,0)+1);
+            shoppingCart.put(p.getId(),shoppingCart.getOrDefault(p.getId(),0)+1);
         return  shoppingCart;}
 
 
-            public Map<Product,Integer> removeProduct(int id){
+            public Map<Integer,Integer> removeProduct(int id){
                 Product p = productService.getById(id);
-                shoppingCart.put(p,shoppingCart.get(p)-1);
-                if(shoppingCart.get(p)==0){
-                    shoppingCart.remove(p);
+                shoppingCart.put(p.getId(),shoppingCart.get(p.getId())-1);
+                if(shoppingCart.get(p.getId())==0){
+                    shoppingCart.remove(p.getId());
                 }
 
 
             return  shoppingCart;}
 
+
+        public  Map<Product,Integer> presentCart(){
+            Map<Product,Integer> presentCart = new HashMap<>();
+            for (Integer id : shoppingCart.keySet()){
+                presentCart.put(productService.getById(id),shoppingCart.get(id));
+            }
+
+
+        return presentCart;}
 
 
 }

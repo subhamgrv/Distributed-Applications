@@ -5,8 +5,7 @@
 <body>
 <h1>Creating a New Product with Javascript</h1>
 <form action ="/addedproductasjson" method="POST" id="productForm">
-    <label>id</label>
-    <input type="text" name="id" required>
+
     <label>name</label>
     <input type="text" name="name" required>
     <label>Price</label>
@@ -22,8 +21,7 @@
 
 
 <form action ="/updateproductasjson" method="POST" id="UpdateForm">
-    <label>id</label>
-    <input type="text" name="id" required>
+
     <label>name</label>
     <input type="text" name="name" required>
     <label>Price</label>
@@ -47,7 +45,6 @@
     const data ={
     name: fd.get("name"),
     price:Number(fd.get("price")),
-    id: Number(fd.get("id")),
     color:fd.get("color")
     };
 
@@ -70,7 +67,6 @@
     const data ={
     name: fd.get("name"),
     price:Number(fd.get("price")),
-    id: Number(fd.get("id")),
     color:fd.get("updatedcolor")
     };
 
