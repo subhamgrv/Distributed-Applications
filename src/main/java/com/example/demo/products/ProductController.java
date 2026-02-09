@@ -41,6 +41,11 @@ public class ProductController {
     public List<Product> getProductByColor(@PathVariable String color){
         return productService.getProductByColor(color);}
 
+    @GetMapping("/Products/colorbynamedquery/{color}")
+    public List<Product> getByColorUsingNamedQuery(@PathVariable String color){
+        return productService.findByColorUsingNamedQuery(color);}
+
+
     @PostMapping("/addedproduct")
     public Product addedNewProduct(@RequestParam String name,@RequestParam Double price, @RequestParam String color){
         return productService.addedNewProduct(name,price,color);
@@ -61,6 +66,7 @@ public class ProductController {
     public void updateProduct(@RequestBody Product p){
         productService.updateProductwithrequestbody(p);
     }
+
 
 
 

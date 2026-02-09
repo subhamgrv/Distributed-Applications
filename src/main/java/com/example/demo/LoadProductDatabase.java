@@ -8,10 +8,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.slf4j.Logger;
 
+import java.util.List;
 
 
 @Configuration
 public class LoadProductDatabase {
+
 
 
     private static final Logger log= LoggerFactory.getLogger(LoadProductDatabase.class);
@@ -19,11 +21,17 @@ public class LoadProductDatabase {
     @Bean
     public CommandLineRunner initDatabase(ProductRepository productRepository){
         return args -> {
+
+            if(productRepository.count()>0){
+                log.info("AlREADY sEEDED ");
+                return;
+            }
+
             Product p1=  new Product( "T-Shirt",        14.99,  "Blue");
             productRepository.save(p1);
             log.info("Saved Product {}",p1);
             Product p12  = new Product("T-Shirt",        14.99,  "Black");
-            productRepository.save(p1);
+            productRepository.save(p12);
             log.info("Saved Product {}", p12);
 
             Product p2  = new Product("Hoodie",         39.99,  "Gray");
@@ -67,5 +75,7 @@ public class LoadProductDatabase {
             log.info("Saved Product {}", p11);
 
         }; }
+
+
 
 }

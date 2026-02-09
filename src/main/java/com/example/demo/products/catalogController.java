@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import   org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 public class catalogController {
 private final ProductService productService;
@@ -16,9 +18,17 @@ catalogController(ProductService productService){
 }
 
 @GetMapping("/catalog")
-    public String catalogPage(Model model, @RequestParam(required = false,defaultValue = "false") boolean edit){
-    model.addAttribute("products",productService.getallProducts());
+    public String catalogPage(Model model, @RequestParam(required = false,defaultValue = "false") boolean edit, @RequestParam(required = false,name = "color") List<String> color){
     model.addAttribute("edit",edit);
+    model.addAttribute("color",color);
+    model.addAttribute("uniqueColor",productService.getallUniqueColorStrings());
+    if(color==null || color.isEmpty()){
+        model.addAttribute("products",productService.getallProducts());
+    }
+    else{
+        model.addAttribute("products",productService.getProductBySelectedColor(color));
+    }
+
 return "/mvc/catalog";
 }
 
@@ -41,6 +51,7 @@ return "/mvc/catalog";
         return "redirect:/catalog?edit=" + edit + "&error=notfound";
     }
 }
+
 
 
 

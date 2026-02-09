@@ -3,6 +3,15 @@ package com.example.demo.products;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
+
+
+
+@NamedQuery(
+        name="Product.findByColorUsingNamedQuery",
+        query="Select p from Product p where p.color= (?1)"
+
+)
 
 @Entity
 public class Product {

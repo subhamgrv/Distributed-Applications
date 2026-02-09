@@ -12,6 +12,15 @@
 
 <a th:href="@{/catalog(edit=true)}">Enable Edit mode</a>
 <a th:href="@{/catalog(edit=false)}">Disable Edit mode</a>
+<form th:action ="@{/catalog}" method="get">
+<div th:each="p:${uniqueColor}">
+    <input type="checkbox" name="color" th:value="${p}" th:checked ="${color !=null and color.contains(p)}">
+    <label th:text="${p}"></label>
+ </div>
+    <button type ="submit">Filter</button>
+
+</form>
+
 <table border="1" cellpadding="8">
     <thead>
     <tr>

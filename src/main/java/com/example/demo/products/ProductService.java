@@ -3,6 +3,7 @@ package com.example.demo.products;
 
 import com.example.demo.LoadProductDatabase;
 import com.example.demo.repository.ProductRepository;
+import jakarta.persistence.Entity;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,6 +44,42 @@ public class ProductService {
     return sameColor;}
 
 
+    public List<Product> getProductBySelectedColor(List<String> color){
+        List<Product> allSelectedColor = new ArrayList<>();
+
+        for(String e: color){
+            allSelectedColor.addAll(getProductByColor(e));
+        }
+
+    return allSelectedColor;}
+
+
+    public  List <String> getallUniqueColorStrings(){
+        List<String> allUniqueColor = new ArrayList<>();
+        for (Product p : getallProducts()){
+            if(!allUniqueColor.contains(p.getColor())){
+                allUniqueColor.add(p.getColor());
+            }
+        }
+    return allUniqueColor;}
+
+
+
+    public List<Product> findByColorUsingNamedQuery(String color){
+        if(color== null){
+            return null;
+        }
+        else{
+            color=color.trim();
+            return productRepository.findByColorUsingNamedQuery(color);
+        }
+
+    }
+
+
+
+
+
 
 
     public Product addedNewProduct(String name, Double price, String color) {
@@ -69,7 +106,7 @@ public class ProductService {
 
 
 
-        Product existing = productRepository.findById(p.getId()).orElseThrow(()->new RuntimeException("Product not Found"+p.getId()));
+        Product existing = getById(p.getId());
 
         existing.setColor(p.getColor());
         existing.setPrice(p.getPrice());
