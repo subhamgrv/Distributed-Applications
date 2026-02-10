@@ -3,6 +3,8 @@ package com.example.demo.repository;
 import com.example.demo.products.Product;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.beans.BeanProperty;
@@ -14,6 +16,5 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     List<Product> findByColorUsingNamedQuery(String color);
 
-
-
+    Page<Product> findAll(Pageable pageable);
 }

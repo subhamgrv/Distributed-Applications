@@ -21,6 +21,12 @@
 
 </form>
 
+<td th:text ="${currentPage}"></td>
+<a th:if="${hasNext}" th:href="@{/catalog-paginated(page=${page.number+1})}">Next</a>
+<a th:if="${hasPrevious}" th:href="@{/catalog-paginated(page=${page.number-1})}">Previous</a>
+<td th:text ="${totalPage}"></td>
+
+
 <table border="1" cellpadding="8">
     <thead>
     <tr>
@@ -45,6 +51,7 @@
         <td th:if="${edit}"><a th:href="@{/ProductCatalog/delete/{id}(id=${p.id})}">Delete</a></td>
 
     </tr>
+
 
     </tbody>
 

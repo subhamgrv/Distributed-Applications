@@ -5,6 +5,8 @@ import com.example.demo.LoadProductDatabase;
 import com.example.demo.repository.ProductRepository;
 import jakarta.persistence.Entity;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +28,11 @@ public class ProductService {
     public List<Product> getallProducts(){
         return productRepository.findAll();
 
+    }
+
+
+    public Page<Product> getAllProductPageable(Pageable pageable){
+        return productRepository.findAll(pageable);
     }
 
     public Product getById(int id)  {

@@ -7,9 +7,18 @@ import com.example.demo.products.Product;
 import com.example.demo.products.ProductService;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Service for Cart
+ *  It Merges shoppingservice and inventory
+ */
+
+
 @Service
 public class AddToCartFacade {
 
+    /**
+     * this is a private field
+     */
     private final ShoppingService shoppingService;
     private final InventoryService inventoryService;
     private final ProductService productService;
@@ -22,10 +31,22 @@ public class AddToCartFacade {
 
     }
 
+
+    /**
+     *
+     *
+     * @param id it will allow me to get the id of the stock and let me check if insert allowed
+     * @return a boolean whether the insert is allowed in or not
+     */
+
     public boolean insertAllowed(int id){
        return inventoryService.stockProProduct(id)>0? true:false;
     }
 
+    /**
+     *
+     * @param id   if insert it allowed then add the item in the stock and then reduct from the inventory
+     */
     public void manageStockadd(int id){
         if(insertAllowed(id)){
             shoppingService.addProduct(id);

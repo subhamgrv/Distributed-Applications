@@ -1,5 +1,8 @@
 package com.example.demo.products;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +33,29 @@ catalogController(ProductService productService){
     }
 
 return "/mvc/catalog";
+}
+
+
+
+@GetMapping("/catalog-paginated")
+public String pageableCatalog(@PageableDefault(size = 3)Pageable pageable,Model model, @RequestParam(required = false,defaultValue = "false") boolean edit, @RequestParam(required = false,name = "color") List<String> color){
+    Page<Product> page = productService.getAllProductPageable(pageable);
+    model.addAttribute("edit",edit);
+    model.addAttribute("color",color);
+    model.addAttribute("page",page);
+    model.addAttribute("uniqueColor",productService.getallUniqueColorStrings());
+    if(color==null || color.isEmpty()){
+        model.addAttribute("products",page.getContent());
+    }
+    else{
+        model.addAttribute("products",productService.getProductBySelectedColor(color));
+    }
+    model.addAttribute("hasNext",page.hasNext());
+    model.addAttribute("hasPrevious",page.hasPrevious());
+    model.addAttribute("currentPage",page.getNumber()+1);
+    model.addAttribute("totalPage",page.getTotalPages());
+    return "/mvc/catalog";
+
 }
 
 
