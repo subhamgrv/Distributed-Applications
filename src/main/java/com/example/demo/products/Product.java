@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 
+import java.math.BigDecimal;
+
 /**
  * JPA entity representing a product in the catalog.
  *
@@ -35,7 +37,7 @@ public class Product {
     private String name;
 
     /** The unit price of the product. */
-    private double price;
+    private BigDecimal price;
 
     /** The color of the product (e.g., "red", "blue"). */
     private String color;
@@ -51,7 +53,7 @@ public class Product {
      * @param price product price
      * @param color product color
      */
-    public Product(int id, String name, double price, String color) {
+    public Product(int id, String name, BigDecimal price, String color) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -65,7 +67,7 @@ public class Product {
      * @param price product price
      * @param color product color
      */
-    public Product(String name, double price, String color) {
+    public Product(String name, BigDecimal price, String color) {
         this.name = name;
         this.price = price;
         this.color = color;
@@ -100,7 +102,7 @@ public class Product {
      *
      * @return product price
      */
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
@@ -147,7 +149,7 @@ public class Product {
      *
      * @param price product price
      */
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 }

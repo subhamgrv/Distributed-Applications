@@ -2,6 +2,7 @@ package com.example.demo.products;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +48,7 @@ public class ProductController {
 
 
     @PostMapping("/addedproduct")
-    public Product addedNewProduct(@RequestParam String name,@RequestParam Double price, @RequestParam String color){
+    public Product addedNewProduct(@RequestParam String name, @RequestParam BigDecimal price, @RequestParam String color){
         return productService.addedNewProduct(name,price,color);
     }
 

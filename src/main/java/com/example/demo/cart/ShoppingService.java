@@ -4,6 +4,7 @@ import com.example.demo.products.Product;
 import com.example.demo.products.ProductService;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.security.PrivateKey;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,6 +53,24 @@ public class ShoppingService {
 
 
         return presentCart;}
+
+    /**
+     *
+     * @return the total value after the calucaltion
+     */
+
+        public BigDecimal totalValue(){
+            BigDecimal cartValue = BigDecimal.ZERO;
+                 for(Integer id: shoppingCart.keySet()){
+
+
+                    BigDecimal lineTotal = (productService.getById(id).getPrice().multiply(BigDecimal.valueOf(shoppingCart.get(id))));
+                     cartValue=cartValue.add(lineTotal);
+
+                 }
+
+
+        return cartValue;}
 
 
 }

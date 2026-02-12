@@ -23,6 +23,7 @@ public class ShoppingController {
     @GetMapping("/cart")
     public String getCart(Model model){
         model.addAttribute("shoppingcart",shoppingService.presentCart());
+        model.addAttribute("totalValue",shoppingService.totalValue());
     return "/mvc/cart";}
 
     @PostMapping("/cart-add/{id}")

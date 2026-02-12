@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -89,7 +90,7 @@ public class ProductService {
 
 
 
-    public Product addedNewProduct(String name, Double price, String color) {
+    public Product addedNewProduct(String name, BigDecimal price, String color) {
         Product p = new Product(name, price,color);
     productRepository.save(p);
     return p; }
