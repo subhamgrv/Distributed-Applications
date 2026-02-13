@@ -1,5 +1,8 @@
 package com.example.demo.products;
 
+import com.example.demo.DTO.PriceChangeDTO;
+import com.example.demo.DTO.PriceChangeFacade;
+import com.example.demo.cart.ShoppingService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -14,10 +17,15 @@ import java.util.List;
 @Controller
 public class catalogController {
 private final ProductService productService;
+    private final PriceChangeFacade priceChangeFacade;
+    private final ShoppingService shoppingService;
 
 
-catalogController(ProductService productService){
+
+catalogController(ProductService productService, PriceChangeFacade priceChangeFacade,ShoppingService shoppingService){
     this.productService=productService;
+    this.priceChangeFacade=priceChangeFacade;
+    this.shoppingService=shoppingService;
 }
 
 @GetMapping("/catalog")
@@ -25,14 +33,13 @@ catalogController(ProductService productService){
     model.addAttribute("edit",edit);
     model.addAttribute("color",color);
     model.addAttribute("uniqueColor",productService.getallUniqueColorStrings());
-    if(color==null || color.isEmpty()){
-        model.addAttribute("products",productService.getallProducts());
-    }
-    else{
-        model.addAttribute("products",productService.getProductBySelectedColor(color));
-    }
+    List<Product> products = (color==null || color.isEmpty())? productService.getallProducts() :productService.getProductBySelectedColor(color);
 
-return "/mvc/catalog";
+    List<PriceChangeDTO> view = priceChangeFacade.buildForProducts(products);
+    model.addAttribute("products",view);
+    model.addAttribute("CurrentCurreny",shoppingService.getactiveCurreny());
+
+    return "/mvc/catalog";
 }
 
 
@@ -44,12 +51,12 @@ public String pageableCatalog(@PageableDefault(size = 3)Pageable pageable,Model 
     model.addAttribute("color",color);
     model.addAttribute("page",page);
     model.addAttribute("uniqueColor",productService.getallUniqueColorStrings());
-    if(color==null || color.isEmpty()){
-        model.addAttribute("products",page.getContent());
-    }
-    else{
-        model.addAttribute("products",productService.getProductBySelectedColor(color));
-    }
+    List<Product> products = (color==null || color.isEmpty())? productService.getallProducts() :productService.getProductBySelectedColor(color);
+
+    List<PriceChangeDTO> view = priceChangeFacade.buildForProducts(products);
+    model.addAttribute("products",view);
+
+    model.addAttribute("CurrentCurreny",shoppingService.getactiveCurreny());
     model.addAttribute("hasNext",page.hasNext());
     model.addAttribute("hasPrevious",page.hasPrevious());
     model.addAttribute("currentPage",page.getNumber()+1);
@@ -62,7 +69,8 @@ public String pageableCatalog(@PageableDefault(size = 3)Pageable pageable,Model 
 
 @GetMapping("/productdetail/{id}")
     public String productPage(@PathVariable int id, Model model){
-    model.addAttribute("product",productService.getById(id));
+    Product p = productService.getById(id) ;
+    model.addAttribute("product",priceChangeFacade.buildForproduct(p));
     return "/mvc/productdetail";
 }
 

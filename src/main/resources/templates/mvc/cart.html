@@ -20,11 +20,19 @@
     </tr>
     </thead>
 
+    <a th:href ="@{/cart(voucher=true)}" >Apply Voucher</a>
+
+    <span th:text="${DiscountVoucher}"></span>
+
+    <a th:href="@{/cart(currentCurrency=EUR)}">Change it to EUR</a>
+
+    <a th:href="@{/cart(currentCurrency=USD)}">Change it to USD</a>
+
     <tbody>
     <tr  th:each="p:${shoppingcart}">
         <td th:text="${p.key.id}"></td>
         <td th:text="${p.key.name}"></td>
-        <td th:text="${p.key.price}"></td>
+        <td th:text="${Currentcurrency}+' '+${p.key.price}"></td>
         <td th:text="${p.value}"></td>
 <!--        <td> <a th:href="@{/productdetail/{id}(id=${p.key.id})}">View</a></td>-->
         <td> <a th:href="@{/productfacade/{id}(id=${p.key.id})}">View</a></td>
@@ -36,6 +44,14 @@
 </table>
 
 <p> Total price : <td th:text="${totalValue}"></td></p>
+<p th:if="${voucher}" th:text="'Discounted price :'+ ${discountedPrice}"> </p>
+<p th:if="${voucher}" th:text="'Saving done by you :'+ ${Saving}"> </p>
+<p th:if ="${voucher} and ${shoppingcart}" th:text="'A'+${DiscountVoucher}+'% voucher has been applied.'"></p>
+
+<a th:if="${voucher}" th:href ="@{/cart(voucher=false)}" >Cancel Voucher</a>
+
+
+
 <p th:if="${#lists.isEmpty(shoppingcart)}">No Products Available</p>
 </body>
 </html>

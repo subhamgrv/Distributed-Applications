@@ -23,6 +23,9 @@ import java.math.BigDecimal;
  * <p>Usage: {@code Product.findByColorUsingNamedQuery} with parameter 1 = color.</p>
  */
 @Entity
+
+
+
 public class Product {
 
     /**

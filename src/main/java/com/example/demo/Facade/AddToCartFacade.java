@@ -32,6 +32,7 @@ public class AddToCartFacade {
     }
 
 
+
     /**
      *
      *
@@ -57,7 +58,7 @@ public class AddToCartFacade {
     }
 
     public boolean removeAllowed(int id){
-        return shoppingService.getCart().getOrDefault(id,0) > 0 ? true :false;
+        return shoppingService.getCart().getItems().getOrDefault(id,0) > 0 ? true :false;
     }
     public void manageStockremove(int id){
         if(removeAllowed(id)){
@@ -65,6 +66,8 @@ public class AddToCartFacade {
             inventoryService.increaseStock(productService.getById(id));
         }
     }
+
+
 
 
 }

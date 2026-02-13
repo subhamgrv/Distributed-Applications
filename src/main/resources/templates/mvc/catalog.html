@@ -41,14 +41,14 @@
 
     <tbody>
     <tr  th:each="p:${products}">
-        <td th:text="${p.id}"></td>
-        <td th:text="${p.name}"></td>
-        <td th:text="${p.price}"></td>
-        <td th:text="${p.color}"></td>
+        <td th:text="${p.product.id}"></td>
+        <td th:text="${p.product.name}"></td>
+        <td th:text="${CurrentCurreny}+'   '+${p.displayprice}"></td>
+        <td th:text="${p.product.color}"></td>
 <!--        <td> <a th:href="@{/productdetail/{id}(id=${p.id})}">View</a></td>-->
-        <td> <a th:href="@{/productfacade/{id}(id=${p.id})}">View</a></td>
+        <td> <a th:href="@{/productfacade/{id}(id=${p.product.id})}">View</a></td>
 
-        <td th:if="${edit}"><a th:href="@{/ProductCatalog/delete/{id}(id=${p.id})}">Delete</a></td>
+        <td th:if="${edit}"><a th:href="@{/ProductCatalog/delete/{id}(id=${p.product.id})}">Delete</a></td>
 
     </tr>
 

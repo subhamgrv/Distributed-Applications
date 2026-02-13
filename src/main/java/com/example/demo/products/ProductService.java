@@ -4,6 +4,7 @@ package com.example.demo.products;
 import com.example.demo.LoadProductDatabase;
 import com.example.demo.repository.ProductRepository;
 import jakarta.persistence.Entity;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -123,9 +124,14 @@ public class ProductService {
 
     }
 
+
     public void deleteProductById(int id){
         productRepository.deleteById(id);
     }
 
 
 }
+
+
+
+

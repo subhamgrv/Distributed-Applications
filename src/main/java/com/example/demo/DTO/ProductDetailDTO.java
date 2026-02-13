@@ -1,8 +1,9 @@
 package com.example.demo.DTO;
 
-import com.example.demo.Service.InventoryService;
+import com.example.demo.products.Currency;
 import com.example.demo.products.Product;
-import com.example.demo.products.ProductService;
+
+import java.math.BigDecimal;
 
 public class ProductDetailDTO {
     private Product product;
@@ -16,9 +17,7 @@ public class ProductDetailDTO {
         this.isSoldOut=isSoldOut;
     }
 
-    public ProductDetailDTO(){
 
-    }
 
     public Product getProduct() {
         return product;

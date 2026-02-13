@@ -19,7 +19,7 @@
     <h2 th:text="${ProductDetailDTO.product.name}">Product Name</h2>
     <ul>
         <li><b>Id:</b><span th:text="${ProductDetailDTO.product.id}"></span></li>
-        <li><b>Price:</b><span th:text="${ProductDetailDTO.product.price}"></span></li>
+        <li><b>Price:</b><span th:text="${Currentcurrency}+''+${ProductDetailDTO.product.price}"></span></li>
         <li><b>Color:</b><span th:text="${ProductDetailDTO.product.color}"></span></li>
         <li><b>Stock: </b><span th:text="${ProductDetailDTO.stock}"></span></li>
         <li><span th:if="${!ProductDetailDTO.isSoldOut}"><b>Still Available</b></span></li>
